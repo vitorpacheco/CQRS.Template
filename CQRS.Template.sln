@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CQRS.Template.Api", "CQRS.Template\CQRS.Template.Api.csproj", "{CE2110AF-EA89-4EA4-A9F8-330A5791B69D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CQRS.Template.Api", "CQRS.Template.Api\CQRS.Template.Api.csproj", "{CE2110AF-EA89-4EA4-A9F8-330A5791B69D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CQRS.Template.Application", "CQRS.Template.Application\CQRS.Template.Application.csproj", "{F8F21010-44C4-4A99-ADE3-4A55AEE0502F}"
 EndProject

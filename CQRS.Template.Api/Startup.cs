@@ -1,18 +1,18 @@
+using Autofac;
+using CQRS.Template.Api.Extensions;
+using CQRS.Template.Api.Services;
+using CQRS.Template.Infrastructure.Domain;
+using FluentValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Reflection;
 
-namespace CQRS.Template
+namespace CQRS.Template.Api
 {
     public class Startup
     {
@@ -26,12 +26,23 @@ namespace CQRS.Template
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
-            services.AddSwaggerGen(c =>
+            services.AddApiVersioning();
+
+            services.AddAutoMapper(cfg =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "CQRS.Template", Version = "v1" });
+                cfg.AddMaps(AppDomain.CurrentDomain.GetAssemblies());
             });
+
+            services.AddSwagger();
+
+            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+        }
+
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            builder.RegisterModule(new DomainModule());
+            builder.RegisterModule(new MediatorModule());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,8 +51,6 @@ namespace CQRS.Template
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CQRS.Template v1"));
             }
 
             app.UseHttpsRedirection();
@@ -49,6 +58,10 @@ namespace CQRS.Template
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSwaggerDoc();
+
+            app.UseErrorHandlingMiddleware();
 
             app.UseEndpoints(endpoints =>
             {

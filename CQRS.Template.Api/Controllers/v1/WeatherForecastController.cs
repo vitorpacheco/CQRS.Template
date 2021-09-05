@@ -1,15 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using CQRS.Template.Api.Controllers.v1;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
-namespace CQRS.Template.Controllers
+namespace CQRS.Template.Api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    [Route("api/v{version:apiVersion}/[controller]")]
+    public class WeatherForecastController : BaseController
     {
         private static readonly string[] Summaries = new[]
         {

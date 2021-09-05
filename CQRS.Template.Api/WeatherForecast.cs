@@ -1,6 +1,6 @@
 using System;
 
-namespace CQRS.Template
+namespace CQRS.Template.Api
 {
     public class WeatherForecast
     {
